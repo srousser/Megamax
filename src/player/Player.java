@@ -1,13 +1,12 @@
 package player;
 
-public class Player {
+import board.Grid;
+
+public abstract class Player {
 
 	public String name;
 	public int symbol;
-
-	public Player(String name, int symbol) {
-		this.name = name;
-		this.symbol = symbol;
-	}
-
+	public boolean active;
+	public boolean movemade;
+	public int move;
 }
