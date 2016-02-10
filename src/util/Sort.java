@@ -1,5 +1,7 @@
 package util;
 
+import board.VirtualBoard;
+
 import java.util.ArrayList;
 
 /**
@@ -31,5 +33,4 @@ public class Sort {
 		a.set(r, temp);
 		return i + 1;
 	}
-
 }

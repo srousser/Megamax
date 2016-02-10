@@ -1,7 +1,10 @@
 package player;
 
 import board.Board;
+import board.VirtualBoard;
 import util.Sort;
+
+import java.util.ArrayList;
 
 /**
  * Created by Andriy on 2/10/16.
@@ -25,7 +28,7 @@ public class AIPlayer extends Player {
 
 	public int minimax() {
 		ArrayList<VirtualBoard> vboards = new ArrayList<VirtualBoard>();
-		for (int i = 0; i < cols; i++) {
+		for (int i = 0; i < board.cols; i++) {
 			VirtualBoard vboard = new VirtualBoard(board.rows, board.cols, board.winLength, board.player2,
 					board.player2, board.player, i, 0, board.pieces);
 			if (vboard.move() % 100 == 0) {
@@ -35,5 +38,4 @@ public class AIPlayer extends Player {
 		Sort.quickSort(vboards, 0, vboards.size() - 1);
 		return vboards.get(0).slot;
 	}
-
 }
