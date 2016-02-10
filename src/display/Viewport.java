@@ -14,7 +14,7 @@ public class Viewport extends Canvas implements Runnable {
 	private int rows = 6, cols = 7, winLength = 4;
 	private int height = 600;
 	private int width = height / rows * cols;
-	private String title = "Game";
+	private String title = "Minimax";
 	public JFrame frame;
 
 	private Thread thread;
