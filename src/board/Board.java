@@ -29,28 +29,6 @@ public class Board {
 		rules = new Rules(this);
 	}
 
-	/*public void update(Grid grid) {
-		if (grid.clicked != null) {
-			if (place(grid.clicked.col, player)) {
-				if (player == player1) {
-					player = player2;
-				} else if (player == player2) {
-					player = player1;
-				} else {
-					System.out.println("Something went terribly wrong!");
-				}
-				String result = checkForWinner();
-				System.out.println(result);
-//				if (result != "Game not over yet.") {
-//					System.exit(0);
-//				}
-			} else {
-				System.out.println("Invalid move, try again");
-			}
-		}
-		grid.clicked = null;
-	}*/
-
 	public void update() {
 		if (player == null) {
 			System.out.println("No player was set to active, you fucked up!");
