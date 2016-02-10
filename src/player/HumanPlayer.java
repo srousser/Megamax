@@ -7,6 +7,11 @@ import board.Grid;
 public class HumanPlayer extends Player{
     Grid grid;
 
+    public HumanPlayer(String name, int symbol){
+        this.name = name;
+        this.symbol = symbol;
+    }
+    
     public void update(Grid grid) {
         if (active == true) {
             if (grid.clicked != null) {
