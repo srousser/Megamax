@@ -4,6 +4,7 @@ import board.Board;
 import board.Grid;
 import input.Mouse;
 import player.AIPlayer;
+import player.HumanPlayer;
 import player.Player;
 
 import javax.swing.*;
@@ -26,8 +27,8 @@ public class Viewport extends Canvas implements Runnable {
 
 	private Board board;
 	private Grid grid;
-	private Player player1;
-	private Player player2;
+	private HumanPlayer player1;
+	private AIPlayer player2;
 
 	private Mouse mouse;
 

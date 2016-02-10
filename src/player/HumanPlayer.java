@@ -13,10 +13,11 @@ public class HumanPlayer extends Player{
     }
     
     public void update(Grid grid) {
-        if (active == true) {
+        if (active) {
             if (grid.clicked != null) {
                 move = grid.clicked.col;
                 movemade = true;
+                grid.clicked = null;
             }
         }
     }

@@ -58,13 +58,15 @@ public class Board {
 			if (player.movemade) {
 				if (place(player.move, player)) {
 					if (player == player1) {
-						player = player2;
 						player1.active = false;
 						player2.active = true;
+						player = player2;
+						player1.movemade = false;
 					} else if (player == player2) {
-						player = player1;
 						player2.active = false;
 						player1.active = true;
+						player = player1;
+						player2.movemade = false;
 					}
 				} else {
 					player.movemade = false;
