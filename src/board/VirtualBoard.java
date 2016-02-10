@@ -5,16 +5,8 @@ import player.Player;
 /**
  * Created by Student on 2/10/2016.
  */
-public class VirtualBoard {
+public class VirtualBoard extends Board {
 
-	public int rows;
-	public int cols;
-	public int winLength;
-	public int[][] pieces;
-	public Player player1;
-	public Player player2;
-	public Player player;
-	public Rules rules;
 	public int slot;
 	public int branch_depth;
 	public int branch_score;
@@ -22,17 +14,13 @@ public class VirtualBoard {
 	//Constructor for VirtualBoard
 	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player player, int slot,
 						int branch_depth, int[][] pieces) {
-		this.rows = rows;
-		this.cols = cols;
-		this.winLength = winLength;
-		this.player1 = player1;
-		this.player2 = player2;
-		this.player = player;
+		super(rows, cols, winLength, player1, player2);
+		super.player = player;
 		this.slot = slot;
 		this.branch_depth = branch_depth;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
-				this.pieces[y][x] = pieces[x][y];
+				this.pieces[y][x] = pieces[y][x];
 			}
 		}
 	}
@@ -72,7 +60,7 @@ public class VirtualBoard {
 	}
 
 	//Check for a winner after placing, adjust branch_score accordingly
-	public boolean checkForWinner() {
+	private boolean checkForWinner() {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) {
 			if (branch_depth % 2 == 0) {

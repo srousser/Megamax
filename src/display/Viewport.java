@@ -5,7 +5,6 @@ import board.Grid;
 import input.Mouse;
 import player.AIPlayer;
 import player.HumanPlayer;
-import player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +12,11 @@ import java.awt.image.BufferStrategy;
 
 public class Viewport extends Canvas implements Runnable {
 
+	public JFrame frame;
 	private int rows = 6, cols = 7, winLength = 4;
 	private int height = 600;
 	private int width = height / rows * cols;
 	private String title = "Minimax";
-	public JFrame frame;
-
 	private Thread thread;
 	private boolean running;
 	private int cupdates = 0, cframes = 0;
@@ -40,7 +38,7 @@ public class Viewport extends Canvas implements Runnable {
 		render = new Render(width, height, rows, cols);
 
 		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case player 1 is acting as computer
-		player2 = new AIPlayer("Player 2 (AI)", 1, board); //player 2 is acting as standard opponent, plays with 1
+		player2 = new AIPlayer("Player 2 (AI)", 1); //player 2 is acting as standard opponent, plays with 1
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
@@ -48,6 +46,17 @@ public class Viewport extends Canvas implements Runnable {
 
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+	}
+
+	public static void main(String[] args) {
+		Viewport v = new Viewport();
+		v.frame.add(v);
+		v.frame.pack();
+		v.frame.setResizable(false);
+		v.frame.setLocationRelativeTo(null);
+		v.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		v.frame.setVisible(true);
+		v.start();
 	}
 
 	public void start() {
@@ -96,7 +105,7 @@ public class Viewport extends Canvas implements Runnable {
 	public void update() {
 		grid.update(mouse);
 		player1.update(grid);
-		player2.update();
+		player2.update(board);
 		board.update();
 	}
 
@@ -124,17 +133,6 @@ public class Viewport extends Canvas implements Runnable {
 		g2.dispose();
 		g.dispose();
 		bs.show();
-	}
-
-	public static void main(String[] args) {
-		Viewport v = new Viewport();
-		v.frame.add(v);
-		v.frame.pack();
-		v.frame.setResizable(false);
-		v.frame.setLocationRelativeTo(null);
-		v.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		v.frame.setVisible(true);
-		v.start();
 	}
 
 }

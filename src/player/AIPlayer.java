@@ -13,13 +13,13 @@ public class AIPlayer extends Player {
 
 	public Board board;
 
-	public AIPlayer(String name, int symbol, Board board) {
+	public AIPlayer(String name, int symbol) {
 		this.name = name;
 		this.symbol = symbol;
-		this.board = board;
 	}
 
-	public void update() {
+	public void update(Board board) {
+		this.board = board;
 		if (active) {
 			move = minimax();
 			movemade = true;

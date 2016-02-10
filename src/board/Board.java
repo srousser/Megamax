@@ -10,13 +10,13 @@ public class Board {
 	public Player player1;
 	public Player player2;
 	public Player player;
-	private Rules rules;
+	protected Rules rules;
 
 	public Board(int rows, int cols, int winLength, Player player1, Player player2) {
 		this.rows = rows;
 		this.cols = cols;
-		this.winLength = winLength;
 		pieces = new int[rows][cols];
+		this.winLength = winLength;
 		this.player1 = player1;
 		this.player2 = player2;
 		player = player1;
@@ -67,7 +67,7 @@ public class Board {
 		}
 	}
 
-	public String checkForWinner() {
+	private String checkForWinner() {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) {
 			return "Game over! Player with symbol " + winnerInRows + " won!";
