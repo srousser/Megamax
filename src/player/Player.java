@@ -21,6 +21,5 @@ public abstract class Player {
 		this.symbol = symbol;
 		active = false;
 	}
-
-	abstract void update(Grid grid);
+	
 }
