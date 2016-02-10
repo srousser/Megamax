@@ -11,7 +11,7 @@ public class HumanPlayer extends Player{
         this.name = name;
         this.symbol = symbol;
     }
-    
+
     public void update(Grid grid) {
         if (active) {
             if (grid.clicked != null) {
