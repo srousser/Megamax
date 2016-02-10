@@ -3,6 +3,7 @@ package display;
 import board.Board;
 import board.Grid;
 import input.Mouse;
+import player.AIPlayer;
 import player.Player;
 
 import javax.swing.*;
@@ -37,8 +38,8 @@ public class Viewport extends Canvas implements Runnable {
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
-		player1 = new Player("Player 1 (sub for computer)", -1); //computer always plays as -1, in this case player 1 is acting as computer
-		player2 = new Player("Player 2", 1); //player 2 is acting as standard opponent, plays with 1
+		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case player 1 is acting as computer
+		player2 = new AIPlayer("Player 2 (AI)", 1); //player 2 is acting as standard opponent, plays with 1
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
@@ -93,7 +94,9 @@ public class Viewport extends Canvas implements Runnable {
 
 	public void update() {
 		grid.update(mouse);
-		board.update(grid);
+		player1.update(grid);
+		player2.update();
+		board.update();
 	}
 
 	public void render() {

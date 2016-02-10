@@ -20,6 +20,7 @@ public class Board {
 		this.player1 = player1;
 		this.player2 = player2;
 		player = player1;
+		player1.active = true;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
 				pieces[y][x] = 0;
@@ -28,7 +29,7 @@ public class Board {
 		rules = new Rules(this);
 	}
 
-	public void update(Grid grid) {
+	/*public void update(Grid grid) {
 		if (grid.clicked != null) {
 			if (place(grid.clicked.col, player)) {
 				if (player == player1) {
@@ -48,6 +49,28 @@ public class Board {
 			}
 		}
 		grid.clicked = null;
+	}*/
+
+	public void update() {
+		if (player == null) {
+			System.out.println("No player was set to active, you fucked up!");
+		} else {
+			if (player.movemade) {
+				if (place(player.move, player)) {
+					if (player == player1) {
+						player = player2;
+						player1.active = false;
+						player2.active = true;
+					} else if (player == player2) {
+						player = player1;
+						player2.active = false;
+						player1.active = true;
+					}
+				} else {
+					player.movemade = false;
+				}
+			}
+		}
 	}
 
 	public boolean place(int slot, Player player) {
