@@ -48,6 +48,7 @@ public class VirtualBoard extends Board {
 				for (int i = 0; i < cols; i++) {
 					VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player2,
 							player2, player, i, branch_depth + 1, pieces);
+//					System.out.println(System.nanoTime());
 					if (vboard.move() % 100 == 0) {
 						branch_score += vboard.branch_score;
 					}
