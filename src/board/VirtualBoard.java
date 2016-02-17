@@ -11,6 +11,7 @@ public class VirtualBoard extends Board {
 	public int branch_depth;
 	public int branch_score;
 	public int depth_limiter;
+	public int score_mod;
 
 	//Constructor for VirtualBoard
 	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player player, int slot,
@@ -25,6 +26,7 @@ public class VirtualBoard extends Board {
 				this.pieces[y][x] = pieces[y][x];
 			}
 		}
+		score_mod = (depth_limiter - branch_depth)*100;
 	}
 
 	//Boolean Place, changes board if possible and returns whether or not the move was valid
@@ -70,18 +72,18 @@ public class VirtualBoard extends Board {
 		if (winnerInRows != 0) {
 			if (branch_depth % 2 == 0) {
 				if (activePlayer.symbol == winnerInRows) {
-					branch_score = branch_score + 100;
+					branch_score = branch_score + score_mod;
 					return true;
 				} else {
-					branch_score = branch_score - 100;
+					branch_score = branch_score - score_mod;
 					return true;
 				}
 			} else {
 				if (activePlayer.symbol == winnerInRows) {
-					branch_score = branch_score - 100;
+					branch_score = branch_score - score_mod;
 					return true;
 				} else {
-					branch_score = branch_score + 100;
+					branch_score = branch_score + score_mod;
 					return true;
 				}
 			}
@@ -90,18 +92,18 @@ public class VirtualBoard extends Board {
 		if (winnerInCols != 0) {
 			if (branch_depth % 2 == 0) {
 				if (activePlayer.symbol == winnerInCols) {
-					branch_score = branch_score + 100;
+					branch_score = branch_score + score_mod;
 					return true;
 				} else {
-					branch_score = branch_score - 100;
+					branch_score = branch_score - score_mod;
 					return true;
 				}
 			} else {
 				if (activePlayer.symbol == winnerInCols) {
-					branch_score = branch_score - 100;
+					branch_score = branch_score - score_mod;
 					return true;
 				} else {
-					branch_score = branch_score + 100;
+					branch_score = branch_score + score_mod;
 					return true;
 				}
 			}
@@ -111,18 +113,18 @@ public class VirtualBoard extends Board {
 			if (winnerInBLtTRDiagonals != 0) {
 				if (branch_depth % 2 == 0) {
 					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
-						branch_score = branch_score + 100;
+						branch_score = branch_score + score_mod;
 						return true;
 					} else {
-						branch_score = branch_score - 100;
+						branch_score = branch_score - score_mod;
 						return true;
 					}
 				} else {
 					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
-						branch_score = branch_score - 100;
+						branch_score = branch_score - score_mod;
 						return true;
 					} else {
-						branch_score = branch_score + 100;
+						branch_score = branch_score + score_mod;
 						return true;
 					}
 				}
@@ -131,18 +133,18 @@ public class VirtualBoard extends Board {
 			if (winnerInBRtTLDiagonals != 0) {
 				if (branch_depth % 2 == 0) {
 					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
-						branch_score = branch_score + 100;
+						branch_score = branch_score + score_mod;
 						return true;
 					} else {
-						branch_score = branch_score - 100;
+						branch_score = branch_score - score_mod;
 						return true;
 					}
 				} else {
 					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
-						branch_score = branch_score - 100;
+						branch_score = branch_score - score_mod;
 						return true;
 					} else {
-						branch_score = branch_score + 100;
+						branch_score = branch_score + score_mod;
 						return true;
 					}
 				}
