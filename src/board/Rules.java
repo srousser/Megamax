@@ -60,7 +60,7 @@ public class Rules {
 
 	/*
 	Checks for wins from any symbol in diagonals, going from bottom left to top right.
-	@return The symbol of the winning player; either 1 or -1.
+	@return The symbol of the winning activePlayer; either 1 or -1.
 	Returns 0 to indicate that there is no winner in any diagonals of this type.
 	 */
 	public int checkBLtTRDiagonals() {

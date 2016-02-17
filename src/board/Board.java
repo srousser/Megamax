@@ -9,7 +9,7 @@ public class Board {
 	public int[][] pieces;
 	public Player player1;
 	public Player player2;
-	public Player player;
+	public Player activePlayer;
 	protected Rules rules;
 
 	public Board(int rows, int cols, int winLength, Player player1, Player player2) {
@@ -19,7 +19,7 @@ public class Board {
 		this.winLength = winLength;
 		this.player1 = player1;
 		this.player2 = player2;
-		player = player1;
+		activePlayer = player1;
 		player1.active = true;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
@@ -30,24 +30,25 @@ public class Board {
 	}
 
 	public void update() {
-		if (player == null) {
-			System.out.println("No player was set to active, you fucked up!");
+		if (activePlayer == null) {
+			System.out.println("No activePlayer was set to active, you fucked up!");
 		} else {
-			if (player.movemade) {
-				if (place(player.move, player)) {
-					if (player == player1) {
+			if (activePlayer.movemade) {
+				if (place(activePlayer.move, activePlayer)) {
+					if (activePlayer == player1) {
 						player1.active = false;
 						player2.active = true;
-						player = player2;
+						activePlayer = player2;
 						player1.movemade = false;
-					} else if (player == player2) {
+					} else if (activePlayer == player2) {
 						player2.active = false;
 						player1.active = true;
-						player = player1;
+						activePlayer = player1;
 						player2.movemade = false;
 					}
+					System.out.println(checkForWinner());
 				} else {
-					player.movemade = false;
+					activePlayer.movemade = false;
 				}
 			}
 		}

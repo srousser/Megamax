@@ -10,14 +10,16 @@ public class VirtualBoard extends Board {
 	public int slot;
 	public int branch_depth;
 	public int branch_score;
+	public int depth_limiter;
 
 	//Constructor for VirtualBoard
 	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player player, int slot,
-						int branch_depth, int[][] pieces) {
+						int branch_depth, int[][] pieces, int depth_limiter) {
 		super(rows, cols, winLength, player1, player2);
-		super.player = player;
+		super.activePlayer = player;
 		this.slot = slot;
 		this.branch_depth = branch_depth;
+		this.depth_limiter = depth_limiter;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
 				this.pieces[y][x] = pieces[y][x];
@@ -41,16 +43,18 @@ public class VirtualBoard extends Board {
 	}
 
 	public int move() {
-		if (place(slot, player)) {
+		if (place(slot, activePlayer)) {
 			if (checkForWinner()) {
 				return branch_score;
 			} else {
-				for (int i = 0; i < cols; i++) {
-					VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player2,
-							player2, player, i, branch_depth + 1, pieces);
-//					System.out.println(System.nanoTime());
-					if (vboard.move() % 100 == 0) {
-						branch_score += vboard.branch_score;
+				if (branch_depth < depth_limiter) {
+					for (int i = 0; i < cols; i++) {
+						VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player2,
+								player2, activePlayer, i, branch_depth + 1, pieces, depth_limiter);
+//						System.out.println(System.nanoTime());
+						if (vboard.move() % 100 == 0) {
+							branch_score += vboard.branch_score;
+						}
 					}
 				}
 			}
@@ -65,7 +69,7 @@ public class VirtualBoard extends Board {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) {
 			if (branch_depth % 2 == 0) {
-				if (player.symbol == winnerInRows) {
+				if (activePlayer.symbol == winnerInRows) {
 					branch_score = branch_score + 100;
 					return true;
 				} else {
@@ -73,7 +77,7 @@ public class VirtualBoard extends Board {
 					return true;
 				}
 			} else {
-				if (player.symbol == winnerInRows) {
+				if (activePlayer.symbol == winnerInRows) {
 					branch_score = branch_score - 100;
 					return true;
 				} else {
@@ -85,7 +89,7 @@ public class VirtualBoard extends Board {
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
 			if (branch_depth % 2 == 0) {
-				if (player.symbol == winnerInCols) {
+				if (activePlayer.symbol == winnerInCols) {
 					branch_score = branch_score + 100;
 					return true;
 				} else {
@@ -93,7 +97,7 @@ public class VirtualBoard extends Board {
 					return true;
 				}
 			} else {
-				if (player.symbol == winnerInCols) {
+				if (activePlayer.symbol == winnerInCols) {
 					branch_score = branch_score - 100;
 					return true;
 				} else {
@@ -106,7 +110,7 @@ public class VirtualBoard extends Board {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
 				if (branch_depth % 2 == 0) {
-					if (player.symbol == winnerInBLtTRDiagonals) {
+					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
 						branch_score = branch_score + 100;
 						return true;
 					} else {
@@ -114,7 +118,7 @@ public class VirtualBoard extends Board {
 						return true;
 					}
 				} else {
-					if (player.symbol == winnerInBLtTRDiagonals) {
+					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
 						branch_score = branch_score - 100;
 						return true;
 					} else {
@@ -126,7 +130,7 @@ public class VirtualBoard extends Board {
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
 				if (branch_depth % 2 == 0) {
-					if (player.symbol == winnerInBRtTLDiagonals) {
+					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
 						branch_score = branch_score + 100;
 						return true;
 					} else {
@@ -134,7 +138,7 @@ public class VirtualBoard extends Board {
 						return true;
 					}
 				} else {
-					if (player.symbol == winnerInBRtTLDiagonals) {
+					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
 						branch_score = branch_score - 100;
 						return true;
 					} else {

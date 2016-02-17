@@ -37,8 +37,8 @@ public class Viewport extends Canvas implements Runnable {
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
-		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case player 1 is acting as computer
-		player2 = new AIPlayer("Player 2 (AI)", 1); //player 2 is acting as standard opponent, plays with 1
+		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case activePlayer 1 is acting as computer
+		player2 = new AIPlayer("Player 2 (AI)", 1); //activePlayer 2 is acting as standard opponent, plays with 1
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
