@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class Render {
 
-	private int width, height;
-	private int rows, cols;
 	public Graphics2D g2;
 	public int horizontalSlotSpacer = 20;
 	public int slotDiam;
 	public int verticalSlotSpacer;
+	private int width, height;
+	private int rows, cols;
 
 	public Render(int width, int height, int rows, int cols) {
 		this.width = width;
@@ -26,11 +26,6 @@ public class Render {
 	public void clear() {
 		g2.setColor(Color.darkGray);
 		g2.fillRect(0, 0, width, height);
-	}
-
-	public void renderTri() {
-		g2.setColor(Color.green);
-		g2.fillPolygon(new int[]{50, 150, 100}, new int[]{50, 50, 100}, 3);
 	}
 
 	public void renderBoard(Board b) {
