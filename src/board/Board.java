@@ -33,22 +33,22 @@ public class Board {
 		if (activePlayer == null) {
 			System.out.println("No activePlayer was set to active, you fucked up!");
 		} else {
-			if (activePlayer.movemade) {
+			if (activePlayer.moveMade) {
 				if (place(activePlayer.move, activePlayer)) {
 					if (activePlayer == player1) {
 						player1.active = false;
 						player2.active = true;
 						activePlayer = player2;
-						player1.movemade = false;
+						player1.moveMade = false;
 					} else if (activePlayer == player2) {
 						player2.active = false;
 						player1.active = true;
 						activePlayer = player1;
-						player2.movemade = false;
+						player2.moveMade = false;
 					}
 					System.out.println(checkForWinner());
 				} else {
-					activePlayer.movemade = false;
+					activePlayer.moveMade = false;
 				}
 			}
 		}
@@ -95,6 +95,6 @@ public class Board {
 				}
 			}
 		}
-		return "The game ended in a draw! You dipshits...";
+		return "The game ended in a draw!";
 	}
 }

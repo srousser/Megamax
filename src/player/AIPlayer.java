@@ -22,21 +22,22 @@ public class AIPlayer extends Player {
 		this.board = board;
 		if (active) {
 			move = minimax();
-			movemade = true;
+			moveMade = true;
 		}
 	}
 
 	public int minimax() {
 		ArrayList<VirtualBoard> vboards = new ArrayList<VirtualBoard>();
 		for (int i = 0; i < board.cols; i++) {
-			VirtualBoard vboard = new VirtualBoard(board.rows, board.cols, board.winLength, board.player2,
-					board.player2, board.activePlayer, i, 0, board.pieces, 8);
+			VirtualBoard vboard = new VirtualBoard(board.rows, board.cols, board.winLength, board.player1,
+					board.player2, board.activePlayer, i, 0, board.pieces, 2);
 			System.out.println(System.nanoTime());
 			if (vboard.move() % 100 == 0) {
 				vboards.add(vboard);
 			}
 		}
 		Sort.quickSort(vboards, 0, vboards.size() - 1);
+		System.out.println("Score: " + vboards.get(0).branchScore);
 		return vboards.get(0).slot;
 	}
 }

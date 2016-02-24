@@ -8,25 +8,25 @@ import player.Player;
 public class VirtualBoard extends Board {
 
 	public int slot;
-	public int branch_depth;
-	public int branch_score;
-	public int depth_limiter;
-	public int score_mod;
+	public int branchDepth;
+	public int branchScore;
+	public int depthLimiter;
+	public int scoreMod;
 
 	//Constructor for VirtualBoard
-	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player player, int slot,
-						int branch_depth, int[][] pieces, int depth_limiter) {
+	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
+						int branchDepth, int[][] pieces, int depthLimiter) {
 		super(rows, cols, winLength, player1, player2);
-		super.activePlayer = player;
+		super.activePlayer = activePlayer;
 		this.slot = slot;
-		this.branch_depth = branch_depth;
-		this.depth_limiter = depth_limiter;
+		this.branchDepth = branchDepth;
+		this.depthLimiter = depthLimiter;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
 				this.pieces[y][x] = pieces[y][x];
 			}
 		}
-		score_mod = (depth_limiter - branch_depth)*100;
+		scoreMod = (depthLimiter - branchDepth) * 100;
 	}
 
 	//Boolean Place, changes board if possible and returns whether or not the move was valid
@@ -47,107 +47,108 @@ public class VirtualBoard extends Board {
 	public int move() {
 		if (place(slot, activePlayer)) {
 			if (checkForWinner()) {
-				return branch_score;
+				return branchScore;
 			} else {
-				if (branch_depth < depth_limiter) {
+				if (activePlayer == player1) {
+					activePlayer = player2;
+				} else if (activePlayer == player2) {
+					activePlayer = player1;
+				}
+				if (branchDepth + 1 < depthLimiter) {
 					for (int i = 0; i < cols; i++) {
-						VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player2,
-								player2, activePlayer, i, branch_depth + 1, pieces, depth_limiter);
+						VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player1,
+								player2, activePlayer, i, branchDepth + 1, pieces, depthLimiter);
 //						System.out.println(System.nanoTime());
 						if (vboard.move() % 100 == 0) {
-							branch_score += vboard.branch_score;
+							branchScore += vboard.branchScore;
 						}
 					}
 				}
 			}
 		} else {
-			branch_score = -1;
+			branchScore = -1;
 		}
-		return branch_score;
+		return branchScore;
 	}
 
-	//Check for a winner after placing, adjust branch_score accordingly
+	//Check for a winner after placing, adjust branchScore accordingly
 	private boolean checkForWinner() {
 		int winnerInRows = rules.checkRows();
-		if (winnerInRows != 0) {
-			if (branch_depth % 2 == 0) {
-				if (activePlayer.symbol == winnerInRows) {
-					branch_score = branch_score + score_mod;
-					return true;
-				} else {
-					branch_score = branch_score - score_mod;
-					return true;
-				}
-			} else {
-				if (activePlayer.symbol == winnerInRows) {
-					branch_score = branch_score - score_mod;
-					return true;
-				} else {
-					branch_score = branch_score + score_mod;
-					return true;
-				}
+		if (winnerInRows != 0) { //if there is a winner
+			if (branchDepth % 2 == 0) { //bot's turn
+//				if (activePlayer.symbol == winnerInRows) {
+//					branchScore += scoreMod;
+//				} else {
+//					branchScore -= scoreMod;
+//				}
+				branchScore += scoreMod;
+			} else { //simulated player's turn
+//				if (activePlayer.symbol == winnerInRows) {
+//					branchScore -= scoreMod;
+//				} else {
+//					branchScore += scoreMod;
+//				}
+				branchScore -= scoreMod;
 			}
+			return true;
 		}
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
-			if (branch_depth % 2 == 0) {
-				if (activePlayer.symbol == winnerInCols) {
-					branch_score = branch_score + score_mod;
-					return true;
-				} else {
-					branch_score = branch_score - score_mod;
-					return true;
-				}
+			if (branchDepth % 2 == 0) {
+//				if (activePlayer.symbol == winnerInCols) {
+//					branchScore += scoreMod;
+//				} else {
+//					branchScore -= scoreMod;
+//				}
+				branchScore += scoreMod;
 			} else {
-				if (activePlayer.symbol == winnerInCols) {
-					branch_score = branch_score - score_mod;
-					return true;
-				} else {
-					branch_score = branch_score + score_mod;
-					return true;
-				}
+//				if (activePlayer.symbol == winnerInCols) {
+//					branchScore -= scoreMod;
+//				} else {
+//					branchScore += scoreMod;
+//				}
+				branchScore -= scoreMod;
 			}
+			return true;
 		}
 		if (rows >= winLength && cols >= winLength) {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
-				if (branch_depth % 2 == 0) {
-					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
-						branch_score = branch_score + score_mod;
-						return true;
-					} else {
-						branch_score = branch_score - score_mod;
-						return true;
-					}
+				if (branchDepth % 2 == 0) {
+//					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
+//						branchScore += scoreMod;
+//					} else {
+//						branchScore -= scoreMod;
+//					}
+					branchScore += scoreMod;
 				} else {
-					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
-						branch_score = branch_score - score_mod;
-						return true;
-					} else {
-						branch_score = branch_score + score_mod;
-						return true;
-					}
+//					if (activePlayer.symbol == winnerInBLtTRDiagonals) {
+//						branchScore -= scoreMod;
+//					} else {
+//						branchScore += scoreMod;
+//					}
+					branchScore -= scoreMod;
 				}
+				return true;
 			}
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
-				if (branch_depth % 2 == 0) {
-					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
-						branch_score = branch_score + score_mod;
-						return true;
-					} else {
-						branch_score = branch_score - score_mod;
-						return true;
-					}
+				if (branchDepth % 2 == 0) {
+//					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
+//						branchScore += scoreMod;
+//					} else {
+//						branchScore -= scoreMod;
+//					}
+					branchScore += scoreMod;
 				} else {
-					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
-						branch_score = branch_score - score_mod;
-						return true;
-					} else {
-						branch_score = branch_score + score_mod;
-						return true;
-					}
+//					if (activePlayer.symbol == winnerInBRtTLDiagonals) {
+//						branchScore -= scoreMod;
+//					} else {
+//						branchScore += scoreMod;
+//					}
+					branchScore -= scoreMod;
 				}
+				return true;
 			}
 		}
 		//check for a draw

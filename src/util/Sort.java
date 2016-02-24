@@ -18,10 +18,10 @@ public class Sort {
 	}
 
 	private static int partition(ArrayList<VirtualBoard> a, int p, int r) {
-		int x = a.get(r).branch_score;
+		int x = a.get(r).branchScore;
 		int i = p - 1;
 		for (int j = p; j < r; j++) {
-			if (a.get(j).branch_score > x) {
+			if (a.get(j).branchScore > x) {
 				i++;
 				VirtualBoard temp = a.get(i);
 				a.set(i, a.get(j));
