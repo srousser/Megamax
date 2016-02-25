@@ -12,6 +12,7 @@ public class VirtualBoard extends Board {
 	public int branchScore;
 	public int depthLimiter;
 	public int scoreMod;
+	public boolean immediate;
 
 	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
 						int branchDepth, int[][] pieces, int depthLimiter) {
@@ -25,8 +26,8 @@ public class VirtualBoard extends Board {
 				this.pieces[y][x] = pieces[y][x];
 			}
 		}
-//		scoreMod = (depthLimiter - branchDepth) * 100;
-		scoreMod = 100;
+		scoreMod = (depthLimiter - branchDepth) * 100;
+//		scoreMod = 100;
 	}
 
 	public boolean place(int slot, Player player) {
@@ -46,6 +47,9 @@ public class VirtualBoard extends Board {
 	public int move() {
 		if (place(slot, activePlayer)) {
 			if (checkForWinner()) {
+				if (branchDepth == 0) {
+					immediate = true;
+				}
 				return branchScore;
 			} else {
 				if (activePlayer == player1) {

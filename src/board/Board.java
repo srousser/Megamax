@@ -54,6 +54,18 @@ public class Board {
 		}
 	}
 
+	public void reset() {
+		player1.reset();
+		player2.reset();
+		activePlayer = player1;
+		player1.active = true;
+		for (int y = 0; y < rows; y++) {
+			for (int x = 0; x < cols; x++) {
+				pieces[y][x] = 0;
+			}
+		}
+	}
+
 	public boolean place(int slot, Player player) {
 		if (pieces[0][slot] == 0) {
 			for (int i = rows - 1; i >= 0; i--) {

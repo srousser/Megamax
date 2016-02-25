@@ -10,7 +10,6 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	public boolean clicked = false;
 
 	public void mouseClicked(MouseEvent e) {
-		clicked = true;
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -18,6 +17,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		clicked = true;
 		mousex = e.getX();
 	}
 

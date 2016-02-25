@@ -2,6 +2,7 @@ package display;
 
 import board.Board;
 import board.Grid;
+import input.Keyboard;
 import input.Mouse;
 import player.AIPlayer;
 import player.HumanPlayer;
@@ -29,6 +30,7 @@ public class Viewport extends Canvas implements Runnable {
 	private AIPlayer player2;
 
 	private Mouse mouse;
+	private Keyboard keyboard;
 
 	public Viewport() {
 		setPreferredSize(new Dimension(width, height));
@@ -43,9 +45,11 @@ public class Viewport extends Canvas implements Runnable {
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
 		mouse = new Mouse();
+		keyboard = new Keyboard();
 
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		addKeyListener(keyboard);
 	}
 
 	public static void main(String[] args) {
@@ -76,7 +80,7 @@ public class Viewport extends Canvas implements Runnable {
 	public void run() {
 		long then = System.nanoTime();
 		long timer = System.currentTimeMillis();
-		final double nanos = 1000000000.0 / 100.0;
+		final double nanos = 1000000000.0 / 60.0;
 		double delta = 0;
 		int frames = 0;
 		int updates = 0;
@@ -107,6 +111,10 @@ public class Viewport extends Canvas implements Runnable {
 		player1.update(grid);
 		player2.update(board);
 		board.update();
+		if (keyboard.r) {
+			board.reset();
+			keyboard.r = !keyboard.r;
+		}
 	}
 
 	public void render() {

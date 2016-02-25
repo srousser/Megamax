@@ -26,14 +26,23 @@ public class AIPlayer extends Player {
 		}
 	}
 
+	public void reset() {
+		active = false;
+		moveMade = false;
+		move = 0;
+	}
+
 	public int minimax() {
 		ArrayList<VirtualBoard> vboards = new ArrayList<VirtualBoard>();
 		for (int i = 0; i < board.cols; i++) {
 			VirtualBoard vboard = new VirtualBoard(board.rows, board.cols, board.winLength, board.player1,
-					board.player2, board.activePlayer, i, 0, board.pieces, 2);
+					board.player2, board.activePlayer, i, 0, board.pieces, 4);
 			System.out.println(System.nanoTime());
 			if (vboard.move() % 100 == 0) {
 				vboards.add(vboard);
+			}
+			if (vboard.immediate) {
+				return vboard.slot;
 			}
 		}
 		Sort.quickSort(vboards, 0, vboards.size() - 1);

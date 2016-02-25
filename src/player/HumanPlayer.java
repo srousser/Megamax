@@ -22,4 +22,10 @@ public class HumanPlayer extends Player {
 			}
 		}
 	}
+
+	public void reset() {
+		active = false;
+		moveMade = false;
+		move = 0;
+	}
 }

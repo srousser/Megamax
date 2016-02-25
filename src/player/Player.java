@@ -7,4 +7,6 @@ public abstract class Player {
 	public boolean active = false;
 	public boolean moveMade;
 	public int move;
+
+	public abstract void reset();
 }
