@@ -33,12 +33,14 @@ public class Render {
 			for (int x = 0; x < cols; x++) {
 				if (b.pieces[y][x] == -1) {
 					g2.setColor(new Color(177, 226, 242, 190));
+//					g2.setColor(new Color(230, 200, 50, 190));
 					g2.fillOval(x * slotDiam + (x + 1) * horizontalSlotSpacer, y * slotDiam + (y + 1) * verticalSlotSpacer, slotDiam, slotDiam);
 				} else if (b.pieces[y][x] == 0) {
 					g2.setColor(new Color(174, 179, 181, 200));
 					g2.drawOval(x * slotDiam + (x + 1) * horizontalSlotSpacer, y * slotDiam + (y + 1) * verticalSlotSpacer, slotDiam, slotDiam);
 				} else if (b.pieces[y][x] == 1) {
 					g2.setColor(new Color(255, 0, 0, 150));
+//					g2.setColor(new Color(255, 105, 180, 190));
 					g2.fillOval(x * slotDiam + (x + 1) * horizontalSlotSpacer, y * slotDiam + (y + 1) * verticalSlotSpacer, slotDiam, slotDiam);
 				}
 			}

@@ -15,7 +15,7 @@ public class Viewport extends Canvas implements Runnable {
 
 	public JFrame frame;
 	private int rows = 6, cols = 7, winLength = 4;
-	private int height = 600;
+	private int height = 720;
 	private int width = height / rows * cols;
 	private String title = "Minimax";
 	private Thread thread;
@@ -27,6 +27,8 @@ public class Viewport extends Canvas implements Runnable {
 	private Board board;
 	private Grid grid;
 	private HumanPlayer player1;
+	//	private AIPlayer player1;
+//	private HumanPlayer player2;
 	private AIPlayer player2;
 
 	private Mouse mouse;
@@ -40,6 +42,8 @@ public class Viewport extends Canvas implements Runnable {
 		render = new Render(width, height, rows, cols);
 
 		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case activePlayer 1 is acting as computer
+//		player1 = new AIPlayer("Player 1 (AI)", -1); //activePlayer 2 is acting as standard opponent, plays with 1
+//		player2 = new HumanPlayer("Player 2 (human)", 1); //computer always plays as -1, in this case activePlayer 1 is acting as computer
 		player2 = new AIPlayer("Player 2 (AI)", 1); //activePlayer 2 is acting as standard opponent, plays with 1
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
@@ -109,6 +113,8 @@ public class Viewport extends Canvas implements Runnable {
 	public void update() {
 		grid.update(mouse);
 		player1.update(grid);
+//		player1.update(board);
+//		player2.update(grid);
 		player2.update(board);
 		board.update();
 		if (keyboard.r) {

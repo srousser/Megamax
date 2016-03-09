@@ -1,5 +1,6 @@
 package util;
 
+import board.RandomBoard;
 import board.VirtualBoard;
 
 import java.util.ArrayList;
@@ -9,15 +10,15 @@ import java.util.ArrayList;
  */
 public class Sort {
 
-	public static void quickSort(ArrayList<VirtualBoard> a, int p, int r) {
+	public static void quickSortVBoardsByBranchScore(ArrayList<VirtualBoard> a, int p, int r) {
 		if (p < r) {
-			int q = partition(a, p, r);
-			quickSort(a, p, q - 1);
-			quickSort(a, q + 1, r);
+			int q = partitionVBoards(a, p, r);
+			quickSortVBoardsByBranchScore(a, p, q - 1);
+			quickSortVBoardsByBranchScore(a, q + 1, r);
 		}
 	}
 
-	private static int partition(ArrayList<VirtualBoard> a, int p, int r) {
+	private static int partitionVBoards(ArrayList<VirtualBoard> a, int p, int r) {
 		int x = a.get(r).branchScore;
 		int i = p - 1;
 		for (int j = p; j < r; j++) {
@@ -29,6 +30,31 @@ public class Sort {
 			}
 		}
 		VirtualBoard temp = a.get(i + 1);
+		a.set(i + 1, a.get(r));
+		a.set(r, temp);
+		return i + 1;
+	}
+
+	public static void quickSortRBoardsByBranchScore(ArrayList<RandomBoard> a, int p, int r) {
+		if (p < r) {
+			int q = partitionRBoards(a, p, r);
+			quickSortRBoardsByBranchScore(a, p, q - 1);
+			quickSortRBoardsByBranchScore(a, q + 1, r);
+		}
+	}
+
+	private static int partitionRBoards(ArrayList<RandomBoard> a, int p, int r) {
+		int x = a.get(r).branchScore;
+		int i = p - 1;
+		for (int j = p; j < r; j++) {
+			if (a.get(j).branchScore > x) {
+				i++;
+				RandomBoard temp = a.get(i);
+				a.set(i, a.get(j));
+				a.set(j, temp);
+			}
+		}
+		RandomBoard temp = a.get(i + 1);
 		a.set(i + 1, a.get(r));
 		a.set(r, temp);
 		return i + 1;

@@ -83,20 +83,40 @@ public class Board {
 	private String checkForWinner() {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) {
-			return "Game over! Player with symbol " + winnerInRows + " won!";
+//			return "Game over! Player with symbol " + winnerInRows + " won!";
+			if (player1.symbol == winnerInRows) {
+				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
+			} else if (player2.symbol == winnerInRows) {
+				return (player2.name + " won! (Symbol: " + player2.symbol + ")");
+			}
 		}
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
-			return "Game over! Player with symbol " + winnerInCols + " won!";
+//			return "Game over! Player with symbol " + winnerInCols + " won!";
+			if (player1.symbol == winnerInCols) {
+				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
+			} else if (player2.symbol == winnerInCols) {
+				return (player2.name + " won! (Symbol: " + player2.symbol + ")");
+			}
 		}
 		if (rows >= winLength && cols >= winLength) {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
-				return "Game over! Player with symbol " + winnerInBLtTRDiagonals + " won!";
+//				return "Game over! Player with symbol " + winnerInBLtTRDiagonals + " won!";
+				if (player1.symbol == winnerInBLtTRDiagonals) {
+					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
+				} else if (player2.symbol == winnerInBLtTRDiagonals) {
+					return (player2.name + " won! (Symbol: " + player2.symbol + ")");
+				}
 			}
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
-				return "Game over! Player with symbol " + winnerInBRtTLDiagonals + " won!";
+//				return "Game over! Player with symbol " + winnerInBRtTLDiagonals + " won!";
+				if (player1.symbol == winnerInBRtTLDiagonals) {
+					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
+				} else if (player2.symbol == winnerInBRtTLDiagonals) {
+					return (player2.name + " won! (Symbol: " + player2.symbol + ")");
+				}
 			}
 		}
 		//check for a draw
