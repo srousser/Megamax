@@ -5,7 +5,7 @@ import player.Player;
 /**
  * Created by Student on 2/10/2016.
  */
-public class VirtualBoard extends Board {
+public class LimVirtualBoard extends Board {
 
 	public int slot;
 	public int branchDepth;
@@ -14,8 +14,8 @@ public class VirtualBoard extends Board {
 	public int scoreMod;
 	public boolean immediate;
 
-	public VirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
-						int branchDepth, int[][] pieces, int depthLimiter) {
+	public LimVirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
+						   int branchDepth, int[][] pieces, int depthLimiter) {
 		super(rows, cols, winLength, player1, player2);
 		super.activePlayer = activePlayer;
 		this.slot = slot;
@@ -26,7 +26,6 @@ public class VirtualBoard extends Board {
 				this.pieces[y][x] = pieces[y][x];
 			}
 		}
-//		scoreMod = (depthLimiter - branchDepth) * 100;
 		scoreMod = 100;
 	}
 
@@ -59,7 +58,7 @@ public class VirtualBoard extends Board {
 				}
 				if (branchDepth + 1 < depthLimiter) {
 					for (int i = 0; i < cols; i++) {
-						VirtualBoard vboard = new VirtualBoard(rows, cols, winLength, player1,
+						LimVirtualBoard vboard = new LimVirtualBoard(rows, cols, winLength, player1,
 								player2, activePlayer, i, branchDepth + 1, pieces, depthLimiter);
 						if (vboard.move() % 100 == 0) {
 							branchScore += vboard.branchScore;
@@ -77,10 +76,8 @@ public class VirtualBoard extends Board {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) { //if there is a winner
 			if (branchDepth % 2 == 0) { //bot's turn
-//				branchScore += scoreMod;
 				branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			} else { //simulated player's turn
-//				branchScore -= scoreMod;
 				branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 
 			}
@@ -89,10 +86,8 @@ public class VirtualBoard extends Board {
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
 			if (branchDepth % 2 == 0) {
-//				branchScore += scoreMod;
 				branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			} else {
-//				branchScore -= scoreMod;
 				branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			}
 			return true;
@@ -101,10 +96,8 @@ public class VirtualBoard extends Board {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
 				if (branchDepth % 2 == 0) {
-//				branchScore += scoreMod;
 					branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				} else {
-//				branchScore -= scoreMod;
 					branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				}
 				return true;
@@ -112,10 +105,8 @@ public class VirtualBoard extends Board {
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
 				if (branchDepth % 2 == 0) {
-//				branchScore += scoreMod;
 					branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				} else {
-//				branchScore -= scoreMod;
 					branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				}
 				return true;

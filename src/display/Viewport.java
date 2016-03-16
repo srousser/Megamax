@@ -4,7 +4,6 @@ import board.Board;
 import board.Grid;
 import input.Keyboard;
 import input.Mouse;
-import player.AIPlayer;
 import player.HumanPlayer;
 
 import javax.swing.*;
@@ -27,9 +26,13 @@ public class Viewport extends Canvas implements Runnable {
 	private Board board;
 	private Grid grid;
 	private HumanPlayer player1;
-	//	private AIPlayer player1;
-//	private HumanPlayer player2;
-	private AIPlayer player2;
+	//	private LimMinimaxAIPlayer player1;
+//	private UnlimMinimaxAIPlayer player1;
+//	private RandomSampleAIPlayer player1;
+	private HumanPlayer player2;
+//	private LimMinimaxAIPlayer player2;
+//	private UnlimMinimaxAIPlayer player2;
+//	private RandomSampleAIPlayer player2;
 
 	private Mouse mouse;
 	private Keyboard keyboard;
@@ -41,10 +44,15 @@ public class Viewport extends Canvas implements Runnable {
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
-		player1 = new HumanPlayer("Player 1 (human)", -1); //computer always plays as -1, in this case activePlayer 1 is acting as computer
-//		player1 = new AIPlayer("Player 1 (AI)", -1); //activePlayer 2 is acting as standard opponent, plays with 1
-//		player2 = new HumanPlayer("Player 2 (human)", 1); //computer always plays as -1, in this case activePlayer 1 is acting as computer
-		player2 = new AIPlayer("Player 2 (AI)", 1); //activePlayer 2 is acting as standard opponent, plays with 1
+		player1 = new HumanPlayer("Player 1 (Human)", -1);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1);
+//		player1 = new UnlimMinimaxAIPlayer("Player 1 (Unlimited Minimax AI)", -1);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1);
+		player2 = new HumanPlayer("Player 2 (Human)", 1);
+//		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1);
+//		player2 = new UnlimMinimaxAIPlayer("Player 2 (Unlimited Minimax AI", 1);
+//		player2 = new RandomSampleAIPlayer("Player 2 (Random Sampling AI)", 1);
+
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
@@ -64,6 +72,11 @@ public class Viewport extends Canvas implements Runnable {
 		v.frame.setLocationRelativeTo(null);
 		v.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.frame.setVisible(true);
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		v.start();
 	}
 
@@ -114,8 +127,8 @@ public class Viewport extends Canvas implements Runnable {
 		grid.update(mouse);
 		player1.update(grid);
 //		player1.update(board);
-//		player2.update(grid);
-		player2.update(board);
+		player2.update(grid);
+//		player2.update(board);
 		board.update();
 		if (keyboard.r) {
 			board.reset();
