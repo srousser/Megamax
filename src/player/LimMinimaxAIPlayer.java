@@ -14,10 +14,12 @@ public class LimMinimaxAIPlayer extends Player {
 
 	public Board board;
 	public Random random = new Random();
+	private int depthLimiter;
 
-	public LimMinimaxAIPlayer(String name, int symbol) {
+	public LimMinimaxAIPlayer(String name, int symbol, int depthLimiter) {
 		this.name = name;
 		this.symbol = symbol;
+		this.depthLimiter = depthLimiter;
 	}
 
 	public void update(Board board) {
@@ -38,7 +40,7 @@ public class LimMinimaxAIPlayer extends Player {
 		ArrayList<LimVirtualBoard> limVBoards = new ArrayList<LimVirtualBoard>();
 		for (int i = 0; i < board.cols; i++) {
 			LimVirtualBoard limVBoard = new LimVirtualBoard(board.rows, board.cols, board.winLength, board.player1,
-					board.player2, board.activePlayer, i, 0, board.pieces, 6);
+					board.player2, board.activePlayer, i, 0, board.pieces, depthLimiter);
 			System.out.println(System.nanoTime());
 			if (limVBoard.move() % 100 == 0) {
 				limVBoards.add(limVBoard);
@@ -53,7 +55,11 @@ public class LimMinimaxAIPlayer extends Player {
 			return l.slot;
 		} else {
 			Sort.quickSortLimVBoardsByBranchScore(limVBoards, 0, limVBoards.size() - 1);
-			System.out.println("Top Score: " + limVBoards.get(0).branchScore);
+			try {
+				System.out.println("Top Score: " + limVBoards.get(0).branchScore);
+			} catch (IndexOutOfBoundsException e) {
+				System.exit(0);
+			}
 			return limVBoards.get(0).slot;
 		}
 	}

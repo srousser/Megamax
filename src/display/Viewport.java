@@ -4,7 +4,7 @@ import board.Board;
 import board.Grid;
 import input.Keyboard;
 import input.Mouse;
-import player.HumanPlayer;
+import player.LimMinimaxAIPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +25,12 @@ public class Viewport extends Canvas implements Runnable {
 
 	private Board board;
 	private Grid grid;
-	private HumanPlayer player1;
-	//	private LimMinimaxAIPlayer player1;
+	//	private HumanPlayer player1;
+	private LimMinimaxAIPlayer player1;
 //	private UnlimMinimaxAIPlayer player1;
 //	private RandomSampleAIPlayer player1;
-	private HumanPlayer player2;
-//	private LimMinimaxAIPlayer player2;
+//	private HumanPlayer player2;
+private LimMinimaxAIPlayer player2;
 //	private UnlimMinimaxAIPlayer player2;
 //	private RandomSampleAIPlayer player2;
 
@@ -44,12 +44,12 @@ public class Viewport extends Canvas implements Runnable {
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
-		player1 = new HumanPlayer("Player 1 (Human)", -1);
-//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1);
+//		player1 = new HumanPlayer("Player 1 (Human)", -1);
+		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 6);
 //		player1 = new UnlimMinimaxAIPlayer("Player 1 (Unlimited Minimax AI)", -1);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1);
-		player2 = new HumanPlayer("Player 2 (Human)", 1);
-//		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1);
+//		player2 = new HumanPlayer("Player 2 (Human)", 1);
+		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 6);
 //		player2 = new UnlimMinimaxAIPlayer("Player 2 (Unlimited Minimax AI", 1);
 //		player2 = new RandomSampleAIPlayer("Player 2 (Random Sampling AI)", 1);
 
@@ -125,10 +125,10 @@ public class Viewport extends Canvas implements Runnable {
 
 	public void update() {
 		grid.update(mouse);
-		player1.update(grid);
-//		player1.update(board);
-		player2.update(grid);
-//		player2.update(board);
+//		player1.update(grid);
+		player1.update(board);
+//		player2.update(grid);
+		player2.update(board);
 		board.update();
 		if (keyboard.r) {
 			board.reset();

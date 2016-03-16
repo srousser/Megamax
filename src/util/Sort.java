@@ -88,7 +88,7 @@ public class Sort {
 
 	public static boolean areAllUnlimBranchScoresEqual(ArrayList<UnlimVirtualBoard> unlimVBoards) {
 		if (unlimVBoards.size() == 0) {
-			return true;
+			return false;
 		} else {
 			double first = unlimVBoards.get(0).branchScore;
 			for (UnlimVirtualBoard u : unlimVBoards) {
@@ -102,7 +102,7 @@ public class Sort {
 
 	public static boolean areAllLimBranchScoresEqual(ArrayList<LimVirtualBoard> limVBoards) {
 		if (limVBoards.size() == 0) {
-			return true;
+			return false;
 		} else {
 			double first = limVBoards.get(0).branchScore;
 			for (LimVirtualBoard l : limVBoards) {

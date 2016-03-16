@@ -51,7 +51,11 @@ public class UnlimMinimaxAIPlayer extends Player {
 			return u.slot;
 		} else {
 			Sort.quickSortUnlimVBoardsByBranchScore(unlimVBoards, 0, unlimVBoards.size() - 1);
-			System.out.println("Top Score: " + unlimVBoards.get(0).branchScore);
+			try {
+				System.out.println("Top Score: " + unlimVBoards.get(0).branchScore);
+			} catch (IndexOutOfBoundsException e) {
+				System.exit(0);
+			}
 			return unlimVBoards.get(0).slot;
 		}
 	}

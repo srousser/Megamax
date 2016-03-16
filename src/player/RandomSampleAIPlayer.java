@@ -48,7 +48,11 @@ public class RandomSampleAIPlayer extends Player {
 			}
 		}
 		Sort.quickSortRBoardsByBranchScore(rboards, 0, rboards.size() - 1);
-		System.out.println("Top Score: " + rboards.get(0).branchScore);
+		try {
+			System.out.println("Top Score: " + rboards.get(0).branchScore);
+		} catch (IndexOutOfBoundsException e) {
+			System.exit(0);
+		}
 		return rboards.get(0).slot;
 	}
 }
