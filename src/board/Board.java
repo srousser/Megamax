@@ -31,7 +31,7 @@ public class Board {
 
 	public void update() {
 		if (activePlayer == null) {
-			System.out.println("No activePlayer was set to active, you fucked up!");
+			System.out.println("O no no active player rip");
 		} else {
 			if (activePlayer.moveMade) {
 				if (place(activePlayer.move, activePlayer)) {
@@ -47,6 +47,11 @@ public class Board {
 						player2.moveMade = false;
 					}
 					System.out.println(checkForWinner());
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				} else {
 					activePlayer.moveMade = false;
 				}

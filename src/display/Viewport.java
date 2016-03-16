@@ -45,11 +45,11 @@ private LimMinimaxAIPlayer player2;
 		render = new Render(width, height, rows, cols);
 
 //		player1 = new HumanPlayer("Player 1 (Human)", -1);
-		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 6);
+		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 2);
 //		player1 = new UnlimMinimaxAIPlayer("Player 1 (Unlimited Minimax AI)", -1);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1);
 //		player2 = new HumanPlayer("Player 2 (Human)", 1);
-		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 6);
+		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 3);
 //		player2 = new UnlimMinimaxAIPlayer("Player 2 (Unlimited Minimax AI", 1);
 //		player2 = new RandomSampleAIPlayer("Player 2 (Random Sampling AI)", 1);
 
@@ -70,13 +70,8 @@ private LimMinimaxAIPlayer player2;
 		v.frame.pack();
 		v.frame.setResizable(false);
 		v.frame.setLocationRelativeTo(null);
-		v.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		v.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		v.frame.setVisible(true);
-//		try {
-//			Thread.sleep(3000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		v.start();
 	}
 
@@ -95,31 +90,35 @@ private LimMinimaxAIPlayer player2;
 	}
 
 	public void run() {
-		long then = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		final double nanos = 1000000000.0 / 60.0;
-		double delta = 0;
-		int frames = 0;
-		int updates = 0;
+//		long then = System.nanoTime();
+//		long timer = System.currentTimeMillis();
+//		final double nanos = 1000000000.0 / 60.0;
+//		double delta = 0;
+//		int frames = 0;
+//		int updates = 0;
+//		while (running) {
+//			long now = System.nanoTime();
+//			delta += (now - then) / nanos;
+//			then = now;
+//			while (delta >= 1) {
+//				update();
+//				updates++;
+//				delta--;
+//			}
+//			render();
+//			frames++;
+//
+//			if (System.currentTimeMillis() - timer > 1000) {
+//				timer += 1000;
+//				cupdates = updates;
+//				cframes = frames;
+//				updates = 0;
+//				frames = 0;
+//			}
+//		}
 		while (running) {
-			long now = System.nanoTime();
-			delta += (now - then) / nanos;
-			then = now;
-			while (delta >= 1) {
-				update();
-				updates++;
-				delta--;
-			}
+			update();
 			render();
-			frames++;
-
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				cupdates = updates;
-				cframes = frames;
-				updates = 0;
-				frames = 0;
-			}
 		}
 	}
 
