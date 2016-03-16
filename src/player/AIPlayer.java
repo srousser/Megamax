@@ -40,7 +40,7 @@ public class AIPlayer extends Player {
 		ArrayList<VirtualBoard> vboards = new ArrayList<VirtualBoard>();
 		for (int i = 0; i < board.cols; i++) {
 			VirtualBoard vboard = new VirtualBoard(board.rows, board.cols, board.winLength, board.player1,
-					board.player2, board.activePlayer, i, 0, board.pieces, 4);
+					board.player2, board.activePlayer, i, 0, board.pieces, 6);
 			System.out.println(System.nanoTime());
 			if (vboard.move() % 100 == 0) {
 				vboards.add(vboard);

@@ -26,8 +26,8 @@ public class VirtualBoard extends Board {
 				this.pieces[y][x] = pieces[y][x];
 			}
 		}
-		scoreMod = (depthLimiter - branchDepth) * 100;
-//		scoreMod = 100;
+//		scoreMod = (depthLimiter - branchDepth) * 100;
+		scoreMod = 100;
 	}
 
 	public boolean place(int slot, Player player) {
@@ -77,18 +77,23 @@ public class VirtualBoard extends Board {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) { //if there is a winner
 			if (branchDepth % 2 == 0) { //bot's turn
-				branchScore += scoreMod;
+//				branchScore += scoreMod;
+				branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			} else { //simulated player's turn
-				branchScore -= scoreMod;
+//				branchScore -= scoreMod;
+				branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
+
 			}
 			return true;
 		}
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
 			if (branchDepth % 2 == 0) {
-				branchScore += scoreMod;
+//				branchScore += scoreMod;
+				branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			} else {
-				branchScore -= scoreMod;
+//				branchScore -= scoreMod;
+				branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 			}
 			return true;
 		}
@@ -96,18 +101,22 @@ public class VirtualBoard extends Board {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
 				if (branchDepth % 2 == 0) {
-					branchScore += scoreMod;
+//				branchScore += scoreMod;
+					branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				} else {
-					branchScore -= scoreMod;
+//				branchScore -= scoreMod;
+					branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				}
 				return true;
 			}
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
 				if (branchDepth % 2 == 0) {
-					branchScore += scoreMod;
+//				branchScore += scoreMod;
+					branchScore += scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				} else {
-					branchScore -= scoreMod;
+//				branchScore -= scoreMod;
+					branchScore -= scoreMod * (1 + Math.pow(cols, depthLimiter - (branchDepth + 1)));
 				}
 				return true;
 			}
