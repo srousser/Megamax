@@ -14,7 +14,7 @@ public class Viewport extends Canvas implements Runnable {
 
 	public JFrame frame;
 	private int rows = 6, cols = 7, winLength = 4;
-	private int height = 720;
+	private int height = 360;
 	private int width = height / rows * cols;
 	private String title = "Minimax";
 	private Thread thread;
@@ -25,12 +25,12 @@ public class Viewport extends Canvas implements Runnable {
 
 	private Board board;
 	private Grid grid;
-	//	private HumanPlayer player1;
+	//		private HumanPlayer player1;
 	private LimMinimaxAIPlayer player1;
-//	private UnlimMinimaxAIPlayer player1;
+	//	private UnlimMinimaxAIPlayer player1;
 //	private RandomSampleAIPlayer player1;
 //	private HumanPlayer player2;
-private LimMinimaxAIPlayer player2;
+	private LimMinimaxAIPlayer player2;
 //	private UnlimMinimaxAIPlayer player2;
 //	private RandomSampleAIPlayer player2;
 
@@ -44,14 +44,19 @@ private LimMinimaxAIPlayer player2;
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
+		/* Player 1 Options */
 //		player1 = new HumanPlayer("Player 1 (Human)", -1);
 		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 2);
 //		player1 = new UnlimMinimaxAIPlayer("Player 1 (Unlimited Minimax AI)", -1);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1);
+		/* End */
+
+		/* Player 2 Options */
 //		player2 = new HumanPlayer("Player 2 (Human)", 1);
 		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 3);
 //		player2 = new UnlimMinimaxAIPlayer("Player 2 (Unlimited Minimax AI", 1);
 //		player2 = new RandomSampleAIPlayer("Player 2 (Random Sampling AI)", 1);
+		/* End */
 
 		board = new Board(rows, cols, winLength, player1, player2);
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
@@ -90,36 +95,36 @@ private LimMinimaxAIPlayer player2;
 	}
 
 	public void run() {
-//		long then = System.nanoTime();
-//		long timer = System.currentTimeMillis();
-//		final double nanos = 1000000000.0 / 60.0;
-//		double delta = 0;
-//		int frames = 0;
-//		int updates = 0;
-//		while (running) {
-//			long now = System.nanoTime();
-//			delta += (now - then) / nanos;
-//			then = now;
-//			while (delta >= 1) {
-//				update();
-//				updates++;
-//				delta--;
-//			}
-//			render();
-//			frames++;
-//
-//			if (System.currentTimeMillis() - timer > 1000) {
-//				timer += 1000;
-//				cupdates = updates;
-//				cframes = frames;
-//				updates = 0;
-//				frames = 0;
-//			}
-//		}
+		long then = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		final double nanos = 1000000000.0 / 60.0;
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;
 		while (running) {
-			update();
+			long now = System.nanoTime();
+			delta += (now - then) / nanos;
+			then = now;
+			while (delta >= 1) {
+				update();
+				updates++;
+				delta--;
+			}
 			render();
+			frames++;
+
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				cupdates = updates;
+				cframes = frames;
+				updates = 0;
+				frames = 0;
+			}
 		}
+//		while (running) {
+//			update();
+//			render();
+//		}
 	}
 
 	public void update() {

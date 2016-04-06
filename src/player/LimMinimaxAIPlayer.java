@@ -14,7 +14,6 @@ public class LimMinimaxAIPlayer extends Player {
 
 	public Board board;
 	public Random random = new Random();
-	private int depthLimiter;
 
 	public LimMinimaxAIPlayer(String name, int symbol, int depthLimiter) {
 		this.name = name;

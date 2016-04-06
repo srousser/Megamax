@@ -1,6 +1,10 @@
 package board;
 
+import player.LimMinimaxAIPlayer;
 import player.Player;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Board {
 
@@ -46,12 +50,21 @@ public class Board {
 						activePlayer = player1;
 						player2.moveMade = false;
 					}
-					System.out.println(checkForWinner());
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+					String winCheck = checkForWinner();
+					System.out.println(winCheck);
+//					if (winCheck != "The game ended in a draw!" && winCheck != "Game not over yet.") {
+//						try {
+//							Thread.sleep(500);
+//							System.exit(0);
+//						} catch (InterruptedException e) {
+//							e.printStackTrace();
+//						}
+//					}
+//					try {
+//						Thread.sleep(500);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//					}
 				} else {
 					activePlayer.moveMade = false;
 				}
@@ -88,38 +101,115 @@ public class Board {
 	private String checkForWinner() {
 		int winnerInRows = rules.checkRows();
 		if (winnerInRows != 0) {
-//			return "Game over! Player with symbol " + winnerInRows + " won!";
 			if (player1.symbol == winnerInRows) {
+				reset();
+				if (player1 instanceof LimMinimaxAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						writer.write(player1.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 			} else if (player2.symbol == winnerInRows) {
+				reset();
+				if (player2 instanceof LimMinimaxAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						writer.write(player2.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				return (player2.name + " won! (Symbol: " + player2.symbol + ")");
 			}
 		}
 		int winnerInCols = rules.checkColumns();
 		if (winnerInCols != 0) {
-//			return "Game over! Player with symbol " + winnerInCols + " won!";
 			if (player1.symbol == winnerInCols) {
+				reset();
+				if (player1 instanceof LimMinimaxAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						writer.write(player1.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 			} else if (player2.symbol == winnerInCols) {
+				reset();
+				if (player2 instanceof LimMinimaxAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						writer.write(player2.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 				return (player2.name + " won! (Symbol: " + player2.symbol + ")");
 			}
 		}
 		if (rows >= winLength && cols >= winLength) {
 			int winnerInBLtTRDiagonals = rules.checkBLtTRDiagonals();
 			if (winnerInBLtTRDiagonals != 0) {
-//				return "Game over! Player with symbol " + winnerInBLtTRDiagonals + " won!";
 				if (player1.symbol == winnerInBLtTRDiagonals) {
+					reset();
+					if (player1 instanceof LimMinimaxAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							writer.write(player1.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 				} else if (player2.symbol == winnerInBLtTRDiagonals) {
+					reset();
+					if (player2 instanceof LimMinimaxAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							writer.write(player2.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 					return (player2.name + " won! (Symbol: " + player2.symbol + ")");
 				}
 			}
 			int winnerInBRtTLDiagonals = rules.checkBRtTLDiagonals();
 			if (winnerInBRtTLDiagonals != 0) {
-//				return "Game over! Player with symbol " + winnerInBRtTLDiagonals + " won!";
 				if (player1.symbol == winnerInBRtTLDiagonals) {
+					reset();
+					if (player1 instanceof LimMinimaxAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							writer.write(player1.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
+					}
 					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 				} else if (player2.symbol == winnerInBRtTLDiagonals) {
+					reset();
+					if (player2 instanceof LimMinimaxAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							writer.write(player2.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 					return (player2.name + " won! (Symbol: " + player2.symbol + ")");
 				}
 			}
@@ -131,6 +221,14 @@ public class Board {
 					return "Game not over yet.";
 				}
 			}
+		}
+		reset();
+		try {
+			FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+			writer.write("draw\r\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return "The game ended in a draw!";
 	}
