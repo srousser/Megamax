@@ -5,6 +5,7 @@ import board.Grid;
 import input.Keyboard;
 import input.Mouse;
 import player.LimMinimaxAIPlayer;
+import player.RandomSampleAIPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +30,8 @@ public class Viewport extends Canvas implements Runnable {
 	/* Player 1 Constructors, UNCOMMENT THE ONE YOU'RE CURRENTLY TESTING */
 //	private HumanPlayer player1;
 //	private UnlimMinimaxAIPlayer player1;
-	private LimMinimaxAIPlayer player1;
-//	private RandomSampleAIPlayer player1;
+//	private LimMinimaxAIPlayer player1;
+	private RandomSampleAIPlayer player1;
 	/* End */
 
 	/* Player 2 Constructors, KEEP THIS THE SAME FOR ALL TRIALS */
@@ -52,12 +53,12 @@ public class Viewport extends Canvas implements Runnable {
 
 		//when choosing a player option, remember to go up a few lines ^^ and uncomment the corresponding constructors
 		/* Player 1 Options, ALL COMBINATIONS FOR TESTING PRESENT */
-		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 3);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 3);
 //		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 4);
 //		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 5);
 //		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 6);
 //		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 7);
-//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 100);
+		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 100);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 500);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 1000);
 //		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 2000);

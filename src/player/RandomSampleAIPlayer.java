@@ -11,16 +11,34 @@ import java.util.ArrayList;
  */
 public class RandomSampleAIPlayer extends Player {
 
+	private int turnCount;
+
 	public RandomSampleAIPlayer(String name, int symbol, int depthLimiter, int samplesLimiter) {
 		this.name = name;
 		this.symbol = symbol;
 		this.depthLimiter = depthLimiter;
 		this.samplesLimiter = samplesLimiter;
+		turnCount = 0;
 	}
 
 	public void update(Board board) {
 		if (active) {
+//			if (turnCount == 0) {
+//				long tInit = System.nanoTime();
+//				move = randomSample(board);
+//				long tFinal = System.nanoTime();
+//				long dT = tFinal - tInit;
+//				try {
+//					FileWriter writer = new FileWriter("depth_" + depthLimiter + "_" + samplesLimiter + "_samples_random_samping_time_output.txt", true);
+//					writer.write(dT + "\r\n");
+//					writer.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				turnCount++;
+//			} else {
 			move = randomSample(board);
+//			}
 			moveMade = true;
 		}
 	}
@@ -29,6 +47,7 @@ public class RandomSampleAIPlayer extends Player {
 		active = false;
 		moveMade = false;
 		move = 0;
+		turnCount = 0;
 	}
 
 	public int randomSample(Board board) {

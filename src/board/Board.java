@@ -98,7 +98,8 @@ public class Board {
 				reset();
 				if (player1 instanceof LimMinimaxAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player1.depthLimiter + "\r\n");
 						writer.close();
 					} catch (IOException e) {
@@ -106,7 +107,8 @@ public class Board {
 					}
 				} else if (player1 instanceof RandomSampleAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //						writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
@@ -119,7 +121,8 @@ public class Board {
 				reset();
 				if (player2 instanceof LimMinimaxAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player2.depthLimiter + "\r\n");
 						writer.close();
 					} catch (IOException e) {
@@ -127,7 +130,8 @@ public class Board {
 					}
 				} else if (player2 instanceof RandomSampleAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //						writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
@@ -144,7 +148,8 @@ public class Board {
 				reset();
 				if (player1 instanceof LimMinimaxAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player1.depthLimiter + "\r\n");
 						writer.close();
 					} catch (IOException e) {
@@ -152,7 +157,8 @@ public class Board {
 					}
 				} else if (player1 instanceof RandomSampleAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //						writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
@@ -165,7 +171,8 @@ public class Board {
 				reset();
 				if (player2 instanceof LimMinimaxAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player2.depthLimiter + "\r\n");
 						writer.close();
 					} catch (IOException e) {
@@ -173,7 +180,8 @@ public class Board {
 					}
 				} else if (player2 instanceof RandomSampleAIPlayer) {
 					try {
-						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 						writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //						writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
@@ -191,7 +199,8 @@ public class Board {
 					reset();
 					if (player1 instanceof LimMinimaxAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player1.depthLimiter + "\r\n");
 							writer.close();
 						} catch (IOException e) {
@@ -199,7 +208,8 @@ public class Board {
 						}
 					} else if (player1 instanceof RandomSampleAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //							writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
@@ -212,7 +222,8 @@ public class Board {
 					reset();
 					if (player2 instanceof LimMinimaxAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player2.depthLimiter + "\r\n");
 							writer.close();
 						} catch (IOException e) {
@@ -220,7 +231,8 @@ public class Board {
 						}
 					} else if (player2 instanceof RandomSampleAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //							writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
@@ -237,7 +249,8 @@ public class Board {
 					reset();
 					if (player1 instanceof LimMinimaxAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player1.depthLimiter + "\r\n");
 							writer.close();
 						} catch (IOException e) {
@@ -245,7 +258,8 @@ public class Board {
 						}
 					} else if (player1 instanceof RandomSampleAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //							writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
@@ -258,7 +272,8 @@ public class Board {
 					reset();
 					if (player2 instanceof LimMinimaxAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player2.depthLimiter + "\r\n");
 							writer.close();
 						} catch (IOException e) {
@@ -266,7 +281,8 @@ public class Board {
 						}
 					} else if (player2 instanceof RandomSampleAIPlayer) {
 						try {
-							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 							writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
 //							writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
@@ -288,19 +304,21 @@ public class Board {
 		}
 		reset();
 		try {
-			FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+//			FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
+			FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
 			writer.write("draw\r\n");
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
-			writer.write("draw\r\n");
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+//			FileWriter writer = new FileWriter("win_loss_testing_output.txt", true); //use this when you want win/loss output into one file
+//			writer.write("draw\r\n");
+//			writer.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		/* REMEMBER THAT WHEN TESTING RANDOM VS. LIMITED, DRAWS WILL BE DUPED -> ONE DRAW REGISTERS AS A DRAW IN BOTH TEXT FILES */
 		return "The game ended in a draw!";
 	}
