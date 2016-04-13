@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by Andriy on 2/26/16.
  */
-public class RandomBoard extends Board {
+public class RandomVirtualBoard extends Board {
 
 	public int slot;
 	public int branchDepth;
@@ -17,9 +17,9 @@ public class RandomBoard extends Board {
 	public boolean immediate;
 	public Random random = new Random();
 
-	public RandomBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
-					   int branchDepth, int[][] pieces, int depthLimiter) {
-		super(rows, cols, winLength, player1, player2);
+	public RandomVirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
+							  int branchDepth, int[][] pieces, int depthLimiter) {
+		super(rows, cols, winLength, player1, player2, false);
 		super.activePlayer = activePlayer;
 		this.slot = slot;
 		this.branchDepth = branchDepth;
@@ -61,7 +61,7 @@ public class RandomBoard extends Board {
 					activePlayer = player1;
 				}
 				if (branchDepth + 1 < depthLimiter) {
-					RandomBoard rboard = new RandomBoard(rows, cols, winLength, player1,
+					RandomVirtualBoard rboard = new RandomVirtualBoard(rows, cols, winLength, player1,
 							player2, activePlayer, random.nextInt(cols), branchDepth + 1, pieces, depthLimiter);
 					if (rboard.move() % 100 == 0) {
 						branchScore += rboard.branchScore;

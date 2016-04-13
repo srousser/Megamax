@@ -6,7 +6,6 @@ import board.Grid;
  * Created by Student on 2/10/2016.
  */
 public class HumanPlayer extends Player {
-	public Grid grid;
 
 	public HumanPlayer(String name, int symbol) {
 		this.name = name;

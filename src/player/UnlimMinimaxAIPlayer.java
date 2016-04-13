@@ -39,7 +39,6 @@ public class UnlimMinimaxAIPlayer extends Player {
 		for (int i = 0; i < board.cols; i++) {
 			UnlimVirtualBoard unlimVBoard = new UnlimVirtualBoard(board.rows, board.cols, board.winLength, board.player1,
 					board.player2, board.activePlayer, i, 0, board.pieces);
-			System.out.println(System.nanoTime());
 			unlimVBoards.add(unlimVBoard);
 			if (unlimVBoard.immediate) {
 				return unlimVBoard.slot;
@@ -47,12 +46,10 @@ public class UnlimMinimaxAIPlayer extends Player {
 		}
 		if (Sort.areAllUnlimBranchScoresEqual(unlimVBoards)) {
 			UnlimVirtualBoard u = unlimVBoards.get(random.nextInt(unlimVBoards.size()));
-			System.out.println("Top Score: " + u.branchScore);
 			return u.slot;
 		} else {
 			Sort.quickSortUnlimVBoardsByBranchScore(unlimVBoards, 0, unlimVBoards.size() - 1);
 			try {
-				System.out.println("Top Score: " + unlimVBoards.get(0).branchScore);
 			} catch (IndexOutOfBoundsException e) {
 				System.exit(0);
 			}

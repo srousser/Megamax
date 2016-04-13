@@ -25,40 +25,56 @@ public class Viewport extends Canvas implements Runnable {
 
 	private Board board;
 	private Grid grid;
-	//		private HumanPlayer player1;
+
+	/* Player 1 Constructors, UNCOMMENT THE ONE YOU'RE CURRENTLY TESTING */
+//	private HumanPlayer player1;
+//	private UnlimMinimaxAIPlayer player1;
 	private LimMinimaxAIPlayer player1;
-	//	private UnlimMinimaxAIPlayer player1;
 //	private RandomSampleAIPlayer player1;
+	/* End */
+
+	/* Player 2 Constructors, KEEP THIS THE SAME FOR ALL TRIALS */
 //	private HumanPlayer player2;
-	private LimMinimaxAIPlayer player2;
 //	private UnlimMinimaxAIPlayer player2;
+	private LimMinimaxAIPlayer player2;
 //	private RandomSampleAIPlayer player2;
+	/* End */
 
 	private Mouse mouse;
 	private Keyboard keyboard;
 
-	public Viewport() {
+	private Viewport() {
 		setPreferredSize(new Dimension(width, height));
 
 		frame = new JFrame(title);
 		thread = new Thread(this, title);
 		render = new Render(width, height, rows, cols);
 
-		/* Player 1 Options */
-//		player1 = new HumanPlayer("Player 1 (Human)", -1);
-		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 2);
-//		player1 = new UnlimMinimaxAIPlayer("Player 1 (Unlimited Minimax AI)", -1);
-//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1);
+		//when choosing a player option, remember to go up a few lines ^^ and uncomment the corresponding constructors
+		/* Player 1 Options, ALL COMBINATIONS FOR TESTING PRESENT */
+		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 3);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 4);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 5);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 6);
+//		player1 = new LimMinimaxAIPlayer("Player 1 (Limited Minimax AI)", -1, 7);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 100);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 500);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 1000);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 2000);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, rows * cols, 5000);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, 10, 100);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, 18, 100);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, 26, 100);
+//		player1 = new RandomSampleAIPlayer("Player 1 (Random Sampling AI", -1, 34, 100);
 		/* End */
 
-		/* Player 2 Options */
-//		player2 = new HumanPlayer("Player 2 (Human)", 1);
-		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 3);
-//		player2 = new UnlimMinimaxAIPlayer("Player 2 (Unlimited Minimax AI", 1);
-//		player2 = new RandomSampleAIPlayer("Player 2 (Random Sampling AI)", 1);
+		/* Player 2 Options, KEEP THIS CONSTANT FOR ALL TRIALS */
+		player2 = new LimMinimaxAIPlayer("Player 2 (Limited Minimax AI", 1, 2);
 		/* End */
 
-		board = new Board(rows, cols, winLength, player1, player2);
+		board = new Board(rows, cols, winLength, player1, player2, true); //the boolean indicates whether you're doing automatic testing;
+		//you want it in true because false makes it spit out text
+		//which slows it down significantly
 		grid = new Grid(width, height, rows, cols, render.horizontalSlotSpacer);
 
 		mouse = new Mouse();
@@ -80,70 +96,61 @@ public class Viewport extends Canvas implements Runnable {
 		v.start();
 	}
 
-	public void start() {
+	private void start() {
 		thread.start();
 		running = true;
 	}
 
-	public void stop() {
-		try {
-			thread.join();
-			running = false;
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void run() {
-		long then = System.nanoTime();
-		long timer = System.currentTimeMillis();
-		final double nanos = 1000000000.0 / 60.0;
-		double delta = 0;
-		int frames = 0;
-		int updates = 0;
-		while (running) {
-			long now = System.nanoTime();
-			delta += (now - then) / nanos;
-			then = now;
-			while (delta >= 1) {
-				update();
-				updates++;
-				delta--;
-			}
-			render();
-			frames++;
-
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				cupdates = updates;
-				cframes = frames;
-				updates = 0;
-				frames = 0;
-			}
-		}
+//		long then = System.nanoTime();
+//		long timer = System.currentTimeMillis();
+//		final double nanos = 1000000000.0 / 60.0;
+//		double delta = 0;
+//		int frames = 0;
+//		int updates = 0;
 //		while (running) {
-//			update();
+//			long now = System.nanoTime();
+//			delta += (now - then) / nanos;
+//			then = now;
+//			while (delta >= 1) {
+//				update();
+//				updates++;
+//				delta--;
+//			}
 //			render();
+//			frames++;
+//
+//			if (System.currentTimeMillis() - timer > 1000) {
+//				timer += 1000;
+//				cupdates = updates;
+//				cframes = frames;
+//				updates = 0;
+//				frames = 0;
+//			}
 //		}
+		while (running) {
+			update();
+			render();
+		}
 	}
 
-	public void update() {
+	private void update() {
 		grid.update(mouse);
+		board.update();
 //		player1.update(grid);
 		player1.update(board);
 //		player2.update(grid);
 		player2.update(board);
-		board.update();
 		if (keyboard.r) {
 			board.reset();
 			keyboard.r = !keyboard.r;
 		}
 	}
 
-	public void render() {
+	private void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
-			createBufferStrategy(3);
+			createBufferStrategy(2);
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
@@ -157,9 +164,9 @@ public class Viewport extends Canvas implements Runnable {
 		render.renderBoard(board);
 		render.renderQuad(grid.active);
 
-		g2.setColor(Color.white);
-		g2.setFont(new Font("Helvetica", Font.BOLD, 18));
-		g2.drawString(cupdates + " updates, " + cframes + " frames.", 10, 25);
+//		g2.setColor(Color.white);
+//		g2.setFont(new Font("Helvetica", Font.BOLD, 18));
+//		g2.drawString(cupdates + " updates, " + cframes + " frames.", 10, 25);
 
 		g2.dispose();
 		g.dispose();

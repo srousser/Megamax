@@ -2,6 +2,7 @@ package board;
 
 import player.LimMinimaxAIPlayer;
 import player.Player;
+import player.RandomSampleAIPlayer;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,8 +16,9 @@ public class Board {
 	public Player player2;
 	public Player activePlayer;
 	protected Rules rules;
+	protected boolean largeScaleTesting;
 
-	public Board(int rows, int cols, int winLength, Player player1, Player player2) {
+	public Board(int rows, int cols, int winLength, Player player1, Player player2, boolean largeScaleTesting) {
 		this.rows = rows;
 		this.cols = cols;
 		pieces = new int[rows][cols];
@@ -25,6 +27,7 @@ public class Board {
 		this.player2 = player2;
 		activePlayer = player1;
 		player1.active = true;
+		this.largeScaleTesting = largeScaleTesting;
 		for (int y = 0; y < rows; y++) {
 			for (int x = 0; x < cols; x++) {
 				pieces[y][x] = 0;
@@ -50,21 +53,11 @@ public class Board {
 						activePlayer = player1;
 						player2.moveMade = false;
 					}
-					String winCheck = checkForWinner();
-					System.out.println(winCheck);
-//					if (winCheck != "The game ended in a draw!" && winCheck != "Game not over yet.") {
-//						try {
-//							Thread.sleep(500);
-//							System.exit(0);
-//						} catch (InterruptedException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//					try {
-//						Thread.sleep(500);
-//					} catch (InterruptedException e) {
-//						e.printStackTrace();
-//					}
+					if (largeScaleTesting) {
+						checkForWinner();
+					} else {
+						System.out.println(checkForWinner());
+					}
 				} else {
 					activePlayer.moveMade = false;
 				}
@@ -111,6 +104,15 @@ public class Board {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				} else if (player1 instanceof RandomSampleAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//						writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 			} else if (player2.symbol == winnerInRows) {
@@ -119,6 +121,15 @@ public class Board {
 					try {
 						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
 						writer.write(player2.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else if (player2 instanceof RandomSampleAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//						writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -139,6 +150,15 @@ public class Board {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				} else if (player1 instanceof RandomSampleAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//						writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 			} else if (player2.symbol == winnerInCols) {
@@ -147,6 +167,15 @@ public class Board {
 					try {
 						FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
 						writer.write(player2.depthLimiter + "\r\n");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else if (player2 instanceof RandomSampleAIPlayer) {
+					try {
+						FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+						writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//						writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 						writer.close();
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -168,6 +197,15 @@ public class Board {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+					} else if (player1 instanceof RandomSampleAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//							writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 				} else if (player2.symbol == winnerInBLtTRDiagonals) {
@@ -176,6 +214,15 @@ public class Board {
 						try {
 							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
 							writer.write(player2.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else if (player2 instanceof RandomSampleAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//							writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -196,7 +243,15 @@ public class Board {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-
+					} else if (player1 instanceof RandomSampleAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							writer.write(player1.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//							writer.write(player1.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 					return (player1.name + " won! (Symbol: " + player1.symbol + ")");
 				} else if (player2.symbol == winnerInBRtTLDiagonals) {
@@ -205,6 +260,15 @@ public class Board {
 						try {
 							FileWriter writer = new FileWriter("mimimax_testing_output.txt", true);
 							writer.write(player2.depthLimiter + "\r\n");
+							writer.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else if (player2 instanceof RandomSampleAIPlayer) {
+						try {
+							FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+							writer.write(player2.samplesLimiter + "\r\n"); //use this when testing with depthLimiter constant
+//							writer.write(player2.depthLimiter + "\r\n"); //use this when testing with samplesLimiter constant
 							writer.close();
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -230,6 +294,14 @@ public class Board {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			FileWriter writer = new FileWriter("random_sampling_testing_output.txt", true);
+			writer.write("draw\r\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/* REMEMBER THAT WHEN TESTING RANDOM VS. LIMITED, DRAWS WILL BE DUPED -> ONE DRAW REGISTERS AS A DRAW IN BOTH TEXT FILES */
 		return "The game ended in a draw!";
 	}
 }

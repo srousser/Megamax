@@ -7,6 +7,7 @@ public abstract class Player {
 	public boolean active = false;
 	public boolean moveMade;
 	public int move;
+	public int samplesLimiter;
 	public int depthLimiter;
 
 	public abstract void reset();

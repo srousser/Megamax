@@ -2,7 +2,6 @@ package player;
 
 import board.Board;
 import board.LimVirtualBoard;
-import util.Sort;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,31 +35,39 @@ public class LimMinimaxAIPlayer extends Player {
 	}
 
 	public int limMinimax() {
-		ArrayList<LimVirtualBoard> limVBoards = new ArrayList<LimVirtualBoard>();
+		ArrayList<LimVirtualBoard> branches = new ArrayList<>();
 		for (int i = 0; i < board.cols; i++) {
 			LimVirtualBoard limVBoard = new LimVirtualBoard(board.rows, board.cols, board.winLength, board.player1,
 					board.player2, board.activePlayer, i, 0, board.pieces, depthLimiter);
-			System.out.println(System.nanoTime());
-			if (limVBoard.move() % 100 == 0) {
-				limVBoards.add(limVBoard);
+			if (limVBoard.move() % limVBoard.scoreMod == 0) {
+				branches.add(limVBoard);
 			}
 			if (limVBoard.immediate) {
 				return limVBoard.slot;
 			}
 		}
-		if (Sort.areAllLimBranchScoresEqual(limVBoards)) {
-			LimVirtualBoard l = limVBoards.get(random.nextInt(limVBoards.size()));
-			System.out.println("Top Score: " + l.branchScore);
-			return l.slot;
-		} else {
-			Sort.quickSortLimVBoardsByBranchScore(limVBoards, 0, limVBoards.size() - 1);
-			try {
-				System.out.println("Top Score: " + limVBoards.get(0).branchScore);
-			} catch (IndexOutOfBoundsException e) {
-				System.exit(0);
+		int maxScore = branches.get(0).branchScore;
+		int choiceSlot = branches.get(0).slot;
+		for (LimVirtualBoard l : branches) {
+			if (l.branchScore != maxScore) {
+				break;
 			}
-			return limVBoards.get(0).slot;
 		}
+		for (int i = 0; i < branches.size(); i++) {
+			if (branches.get(i).branchScore != maxScore) {
+				break;
+			}
+			if (i == branches.size() - 1) {
+				return branches.get(random.nextInt(branches.size())).slot;
+			}
+		}
+		for (LimVirtualBoard l : branches) {
+			if (l.branchScore >= maxScore) {
+				maxScore = l.branchScore;
+				choiceSlot = l.slot;
+			}
+		}
+		return choiceSlot;
 	}
 
 }

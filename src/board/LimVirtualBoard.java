@@ -16,7 +16,7 @@ public class LimVirtualBoard extends Board {
 
 	public LimVirtualBoard(int rows, int cols, int winLength, Player player1, Player player2, Player activePlayer, int slot,
 						   int branchDepth, int[][] pieces, int depthLimiter) {
-		super(rows, cols, winLength, player1, player2);
+		super(rows, cols, winLength, player1, player2, false);
 		super.activePlayer = activePlayer;
 		this.slot = slot;
 		this.branchDepth = branchDepth;
